@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST" action="{{ url_for('authentication') }}">
+    <ul>
+        <li>Usuário: <input type="text" name="user"></li>
+        <li>Senha: <input type="password" name="password"></li>
+        <li><input type="submit"></li>
+    </ul>
+</form>
+{% endblock %}

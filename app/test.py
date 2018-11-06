@@ -1,4 +1,4 @@
-import models
+from app import models
 
 manutencao = models.OneTimeOnly(name='UM DIA',
                                 active_since=1540717963,

@@ -1,5 +1,5 @@
-from zabbix_api import ZabbixAPI as Zabbix
-from API.auth import Auth
+from app.API.zabbixapi import Zabbix
+from app.API.auth import Auth
 
 api = Zabbix(server=Auth.server)
 api.login(user=Auth.user, password=Auth.password)
@@ -25,7 +25,7 @@ class OneTimeOnly(Maintenance):
         else:
             target = 'groupids'
 
-        action = api.maintenance.create({'name': self.name,
+        action = api.maintenance('create', {'name': self.name,
                                             'active_since': self.active_since,
                                             'active_till': self.active_till,
                                             'maintenance_type': self.maintenance_type,
