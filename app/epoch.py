@@ -2,15 +2,15 @@ import time
 
 def epochToHuman(x):
 
-    return time.strftime('%Y%m%d%H%M%S', time.localtime(x))
+    return time.strftime('%Y-%m-%dT%H:%M', time.localtime(x))
 
 def humanToEpoch(x):
     # GMT
-    return int(time.mktime(time.strptime(x, '%Y%m%d%H%M%S'))) - time.timezone
+    return int(time.mktime(time.strptime(x, '%Y-%m-%dT%H:%M')))
 
 
 if __name__ == '__main__':
-    n = 1540708734
+    n = 1541616000
     human_time = epochToHuman(n)
     epoch_time = humanToEpoch(human_time)
 

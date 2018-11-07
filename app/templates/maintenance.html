@@ -1,216 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
-<div id="maintenanceTab" aria-labelledby="tab_maintenanceTab" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="true" aria-hidden="false">
-    <ul class="table-forms" id="maintenanceFormList">
-        <li>
-            <div class="table-forms-td-left">
-                <label for="mname" class="form-label-asterisk">Nome</label>
-            </div>
-            <div class="table-forms-td-right">
-                <input type="text" id="mname" name="mname" value="" maxlength="128" style="width: 453px; background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;" aria-required="true" autofocus="autofocus">
-            </div>
-        </li>
-        <li>
-            <div class="table-forms-td-left">
-                <label for="maintenance_type">Tipo de manutenção</label>
-            </div>
-            <div class="table-forms-td-right">
-                <ul id="maintenance_type" class="radio-segmented">
-                    <li>
-                        <input type="radio" id="maintenance_type_0" name="maintenance_type" value="0" checked="checked">
-                        <label for="maintenance_type_0">Com coleta de dados</label>
-                    </li>
-                    <li>
-                        <input type="radio" id="maintenance_type_1" name="maintenance_type" value="1">
-                        <label for="maintenance_type_1">Sem coleta de dados</label>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <div class="table-forms-td-left">
-                <label for="active_since" class="form-label-asterisk">Ativo desde</label>
-            </div>
-            <div class="table-forms-td-right">
-                <div>
-                    <input type="text" id="active_since" name="active_since" value="2018-11-06 00:00" maxlength="255" placeholder="YYYY-MM-DD hh:mm">
-                    <button type="button" id="active_since_calendar" name="active_since_calendar" class="icon-cal" onclick="toggleCalendar(this, &quot;active_since&quot;, &quot;Y-m-d H:i&quot;);"></button>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="table-forms-td-left">
-                <label for="active_till" class="form-label-asterisk">Ativo até</label>
-            </div>
-            <div class="table-forms-td-right">
-                <div>
-                    <input type="text" id="active_till" name="active_till" value="2018-11-07 00:00" maxlength="255" placeholder="YYYY-MM-DD hh:mm">
-                    <button type="button" id="active_till_calendar" name="active_till_calendar" class="icon-cal" onclick="toggleCalendar(this, &quot;active_till&quot;, &quot;Y-m-d H:i&quot;);"></button>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="table-forms-td-left">
-                <label for="description">Descrição</label>
-            </div>
-            <div class="table-forms-td-right">
-                <textarea id="description" name="description" rows="7" style="width: 453px;"></textarea>
-            </div>
-        </li>
+<form method="POST" action="{{ url_for('manitenanceToZabbix') }}">
+    <ul>
+        <li><h3>Título da manutenção: </h3><input type="text" name="name"></li>
+        <li><h3>Descrição: </h3><input type="text" name="description"></li>
+        <li><h3>Tipo: </h3>
+            <input type="radio" value="0" name="maintenance_type">Sem coleta de dados<br>
+            <input type="radio" value="1" name="maintenance_type">Com coleta de dados<br></li>
+        <li><h3>Início: </h3><input type="datetime-local" name="starttime"></li>
+        <li><h3>Fim: </h3><input type="datetime-local" name="endtime"></li>
+        <li><h3>Elementos: </h3>
+            <input type="radio" value="0" name="target">Hosts<br>
+            <input type="radio" value="1" name="target">Grupo de hosts<br></li>
+        <select multiple="multiple" name="host_list" size='30'>
+            {% for host in hosts %}
+                <option value="{{ host.hostid }}">{{ host.name }}</option>
+            {% endfor %}
+        </select>
+        <li><input type="submit"></li>
     </ul>
-</div>
-<div class="table-forms-separator" style="min-width: 540px;">
-    <ul class="table-forms">
-        <li>
-            <div class="table-forms-td-left">
-                <label for="new_timeperiod_timeperiod_type">Tipo de período</label>
-            </div>
-            <div class="table-forms-td-right">
-                <select id="new_timeperiod_timeperiod_type" name="new_timeperiod[timeperiod_type]" onchange="submit()" autocomplete="off">
-                    <option value="0" selected="selected">Apenas uma vez</option>
-                    <option value="2">Diário</option>
-                    <option value="3">Semanal</option>
-                    <option value="4">Mensal</option>
-                </select>
-            </div>
-        </li>
-        <li>
-            <input type="hidden" id="new_timeperiod_every_tmp" name="new_timeperiod[every]" value="1">
-        </li>
-        <li>
-            <input type="hidden" id="new_timeperiod_month_tmp" name="new_timeperiod[month]" value="0">
-        </li>
-        <li>
-            <input type="hidden" id="new_timeperiod_day_tmp" name="new_timeperiod[day]" value="1">
-        </li>
-        <li>
-            <input type="hidden" id="new_timeperiod_hour_tmp" name="new_timeperiod[hour]" value="12">
-        </li>
-        <li>
-            <input type="hidden" id="new_timeperiod_minute_tmp" name="new_timeperiod[minute]" value="0">
-        </li>
-        <li>
-            <input type="hidden" id="new_timeperiod_month_date_type" name="new_timeperiod[month_date_type]" value="">
-        </li>
-        <li>
-            <input type="hidden" id="new_timeperiod_dayofweek" name="new_timeperiod[dayofweek]" value="0">
-        </li>
-        <li>
-            <div class="table-forms-td-left">
-                <label for="new_timeperiod_start_date" class="form-label-asterisk">Data</label>
-            </div>
-            <div class="table-forms-td-right">
-                <div>
-                    <input type="text" id="new_timeperiod_start_date" name="new_timeperiod_start_date" value="2018-11-06 02:55" maxlength="255" placeholder="YYYY-MM-DD hh:mm">
-                    <button type="button" id="new_timeperiod_start_date_calendar" name="new_timeperiod_start_date_calendar" class="icon-cal" onclick="toggleCalendar(this, &quot;new_timeperiod_start_date&quot;, &quot;Y-m-d H:i&quot;);"></button>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="table-forms-td-left">
-                <label for="new_timeperiod" class="form-label-asterisk">Duração do período de manutenção</label>
-            </div>
-            <div class="table-forms-td-right">
-                <div id="new_timeperiod">
-                    <input type="text" id="new_timeperiod_period_days" name="new_timeperiod[period_days]" value="0" maxlength="3" style="text-align: right;width: 75px;" onchange="validateNumericBox(this, false, true);">Dias&nbsp;&nbsp;
-                    <select id="new_timeperiod_period_hours" name="new_timeperiod[period_hours]" autocomplete="off">
-                        <option value="0">0</option>
-                        <option value="1" selected="selected">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                    </select>Horas&nbsp;&nbsp;
-                    <select id="new_timeperiod_period_minutes" name="new_timeperiod[period_minutes]" autocomplete="off">
-                        <option value="0" selected="selected">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                        <option value="20">20</option>
-                        <option value="21">21</option>
-                        <option value="22">22</option>
-                        <option value="23">23</option>
-                        <option value="24">24</option>
-                        <option value="25">25</option>
-                        <option value="26">26</option>
-                        <option value="27">27</option>
-                        <option value="28">28</option>
-                        <option value="29">29</option>
-                        <option value="30">30</option>
-                        <option value="31">31</option>
-                        <option value="32">32</option>
-                        <option value="33">33</option>
-                        <option value="34">34</option>
-                        <option value="35">35</option>
-                        <option value="36">36</option>
-                        <option value="37">37</option>
-                        <option value="38">38</option>
-                        <option value="39">39</option>
-                        <option value="40">40</option>
-                        <option value="41">41</option>
-                        <option value="42">42</option>
-                        <option value="43">43</option>
-                        <option value="44">44</option>
-                        <option value="45">45</option>
-                        <option value="46">46</option>
-                        <option value="47">47</option>
-                        <option value="48">48</option>
-                        <option value="49">49</option>
-                        <option value="50">50</option>
-                        <option value="51">51</option>
-                        <option value="52">52</option>
-                        <option value="53">53</option>
-                        <option value="54">54</option>
-                        <option value="55">55</option>
-                        <option value="56">56</option>
-                        <option value="57">57</option>
-                        <option value="58">58</option>
-                        <option value="59">59</option>
-                    </select>Minutos</div>
-            </div>
-        </li>
-    </ul>
-    <ul class="hor-list">
-        <li>
-            <button type="button" onclick="javascript: submitFormWithParam(&quot;maintenanceForm&quot;, &quot;add_timeperiod&quot;, &quot;1&quot;);" class="btn-link">Adicionar</button>
-        </li>
-        <li>
-            <button type="button" onclick="javascript: submitFormWithParam(&quot;maintenanceForm&quot;, &quot;cancel_new_timeperiod&quot;, &quot;1&quot;);" class="btn-link">Cancelar</button>
-        </li>
-    </ul>
-</div>
+</form>
 {% endblock %}
