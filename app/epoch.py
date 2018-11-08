@@ -7,7 +7,7 @@ def epochToHuman(x):
 def humanToEpoch(x):
     # GMT
     # Soma 3 horas para compensar o timezone. Fiquei horas mexendo e não sei o que fiz.
-    return int(time.mktime(time.strptime(x, '%Y-%m-%dT%H:%M'))) + 10800
+    return int(time.mktime(time.strptime(x, '%Y-%m-%dT%H:%M'))) + 7200
 
 
 if __name__ == '__main__':
