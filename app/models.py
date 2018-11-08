@@ -18,8 +18,8 @@ class OneTimeOnly(Maintenance):
     def create(self, ids, groupids=False):
 
         # Realiza o login após o método ser chamado.
-        api = Zabbix(server='http://10.241.0.4/zabbix')
-        api.login('diego.rodrigues', 'Curumim982150*')
+        api = Zabbix(server='http://192.168.1.38')
+        api.login('Admin', 'zabbix')
 
         # Se o groupids for False, o id será reconhecido como um id de host. Se não, será um id de Grupo
         if groupids is False:

@@ -2,6 +2,13 @@ from flask import Flask, redirect, render_template, url_for, request
 import app.epoch as epoch
 from app.API.zabbixapi import Zabbix
 from app import models
+import os
+
+# Variáveis de ambiente para Docker
+zabbixServer = os.getenv('ZABBIX_SERVER', 'http://0.0.0.0')
+zabbixUser = os.getenv('ZABBIX_USER', 'Admin')
+zabbixPassword = os.getenv('ZABBIX_PASSWORD', 'zabbix')
+##################################
 
 app = Flask(__name__)
 app.secret_key = 'Rn5!c3cU@a5t'
@@ -16,9 +23,9 @@ def index():
 def maintenance():
 
     # Faz um get para listar os hosts para o usuário.
-    api = Zabbix(server='http://10.241.0.4/zabbix')
-    api.login('API', 'APIzabbix')
-    hosts = [host for host in api.host('get', {'output': ['hostid', 'name'], 'groupids': '83'})]
+    api = Zabbix(server=zabbixServer)
+    api.login(user=zabbixUser, password=zabbixPassword)
+    hosts = [host for host in api.host('get', {'output': ['hostid', 'name']})]
 
     return render_template('maintenance.html', hosts=hosts)
 

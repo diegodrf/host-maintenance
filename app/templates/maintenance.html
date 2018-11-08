@@ -5,13 +5,25 @@
         <li><h3>Título da manutenção: </h3><input type="text" name="name"></li>
         <li><h3>Descrição: </h3><input type="text" name="description"></li>
         <li><h3>Tipo: </h3>
-            <input type="radio" value="0" name="maintenance_type">Sem coleta de dados<br>
-            <input type="radio" value="1" name="maintenance_type">Com coleta de dados<br></li>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" value="1" name="maintenance_type" id="option1" autocomplete="off" checked>Sem coleta de dados
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" value="0" name="maintenance_type" id="option2" autocomplete="off">Com coleta de dados
+                </label>
+            </div>
         <li><h3>Início: </h3><input type="datetime-local" name="starttime"></li>
         <li><h3>Fim: </h3><input type="datetime-local" name="endtime"></li>
         <li><h3>Elementos: </h3>
-            <input type="radio" value="0" name="target">Hosts<br>
-            <input type="radio" value="1" name="target">Grupo de hosts<br></li>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" value="0" name="target" id="option1" autocomplete="off" checked>Hosts
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" value="" name="target" id="option2" autocomplete="off">Grupo de hosts
+                </label>
+            </div>
         <select multiple="multiple" name="host_list" size='30'>
             {% for host in hosts %}
                 <option value="{{ host.hostid }}">{{ host.name }}</option>
