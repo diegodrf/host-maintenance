@@ -6,15 +6,16 @@ def epochToHuman(x):
 
 def humanToEpoch(x):
     # GMT
-    return int(time.mktime(time.strptime(x, '%Y-%m-%dT%H:%M'))) + time.timezone
+    # Soma 3 horas para compensar o timezone. Fiquei horas mexendo e não sei o que fiz.
+    return int(time.mktime(time.strptime(x, '%Y-%m-%dT%H:%M'))) + 10800
 
 
 if __name__ == '__main__':
-    n = 1570554960
+    n = 1541697624
     human_time = epochToHuman(n)
     epoch_time = humanToEpoch(human_time)
 
-    print(human_time)
-    print(epoch_time)
-    print(n)
-    print(time.timezone)
+    print('human:', human_time)
+    print('epoch:', epoch_time)
+    print('n:', n)
+    print('timezone:', time.timezone)
