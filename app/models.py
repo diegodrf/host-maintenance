@@ -40,3 +40,19 @@ class OneTimeOnly(Maintenance):
                                                              'period': self.period}]
                                             })
         return action
+
+
+# Função isolada para pegar todas as muntenções
+def get_maintenance():
+
+    # Realiza o login após o método ser chamado.
+    api = Zabbix(server=Auth.zabbixServer)
+    api.login(user=Auth.zabbixUser, password=Auth.zabbixPassword)
+
+    maintenances = api.maintenance('get', {'output': 'extend',
+                                           'selectGroups': ['name'],
+                                           'selectHosts': ['name'],
+                                           'sortfield': ['maintenanceid'],
+                                           'sortorder': ['DESC']})
+
+    return maintenances

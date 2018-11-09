@@ -5,7 +5,6 @@ from app import models
 from app.API.auth import Auth
 
 
-
 app = Flask(__name__)
 app.secret_key = 'Rn5!c3cU@a5t'
 
@@ -57,6 +56,11 @@ def manitenanceToZabbix():
     #TODO: Criar uma tela amigavel para a validação da ação.
     return str(message)
 
+
+@app.route('/maintenance_list')
+def maintenance_list():
+    maintenances = models.get_maintenance()
+    return render_template('maintenance_list.html', maintenances=maintenances)
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)

@@ -2,12 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
     {%  block header %}
     {% endblock %}
     <title>Manutenção</title>
 </head>
 <body>
+    <aside>
+        <menu>
+            <ul>
+                <li><a href="{{ url_for('maintenance') }}">Criar Manutenção</a></li>
+                <li><a href="{{ url_for('maintenance_list') }}">Lista de manutenções</a></li>
+            </ul>
+        </menu>
+    </aside>
     <div class="container-fluid">
         {% block content %}
         {% endblock %}
