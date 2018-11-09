@@ -42,17 +42,26 @@ class OneTimeOnly(Maintenance):
         return action
 
 
-# Função isolada para pegar todas as muntenções
-def get_maintenance():
-
+# Função isolada para pegar todas as manutenções.
+# Se id for vazio, lista todas as manutenções.
+# Se passado o id, retorna apenas a manutenção solicitada.
+def get_maintenance(id=None):
     # Realiza o login após o método ser chamado.
     api = Zabbix(server=Auth.zabbixServer)
     api.login(user=Auth.zabbixUser, password=Auth.zabbixPassword)
 
-    maintenances = api.maintenance('get', {'output': 'extend',
-                                           'selectGroups': ['name'],
-                                           'selectHosts': ['name'],
-                                           'sortfield': ['maintenanceid'],
-                                           'sortorder': ['DESC']})
+    if id is None:
+        maintenances = api.maintenance('get', {'output': 'extend',
+                                               'selectGroups': ['name'],
+                                               'selectHosts': ['name'],
+                                               'sortfield': ['maintenanceid'],
+                                               'sortorder': ['DESC']})
+        return maintenances
 
-    return maintenances
+    else:
+        maintenance = api.maintenance('get', {'output': 'extend',
+                                               'selectGroups': ['name'],
+                                               'selectHosts': ['name'],
+                                               'filter': {'maintenanceid': id}
+                                               })
+        return maintenance

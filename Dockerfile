@@ -4,5 +4,6 @@ COPY . /app
 ENV ZABBIX_SERVER "http://127.0.0.1/zabbix"
 ENV ZABBIX_USER "Admin"
 ENV ZABBIX_PASSWORD "zabbix"
+ENV TZ "America/Sao_Paulo"
 
 RUN pip install -r /app/requirements.txt

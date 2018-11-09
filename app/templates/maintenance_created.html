@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Manutenção criada com sucesso!</h1>
+        <ul>
+            <li>ID: {{ maintenance.maintenanceid }}</li>
+            <li>Título: {{ maintenance.name }}</li>
+            <li>Descrição: {{ maintenance.description }}</li>
+            <li>Início: {{ maintenance.active_since }}</li>
+            <li>Fim: {{ maintenance.active_till }}</li>
+            <li>Hosts:
+                <ul>
+            {% for host in maintenance.hosts %}
+                <li>{{ host.name }}</li>
+            {% endfor %}
+                    </ul>
+            </li>
+            <li>Tipo: {{ maintenance.maintenance_type }}</li>
+        </ul>
+{% endblock %}

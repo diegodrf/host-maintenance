@@ -54,7 +54,9 @@ def manitenanceToZabbix():
         message = maintenanceZabbix.create(ids=host_list, groupids=True)
 
     #TODO: Criar uma tela amigavel para a validação da ação.
-    return str(message)
+    maintenance_created = models.get_maintenance(message['maintenanceids'][0])
+
+    return render_template('maintenance_created.html', maintenance=maintenance_created)
 
 
 @app.route('/maintenance_list')
