@@ -1,35 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
-<form method="POST" action="{{ url_for('manitenanceToZabbix') }}">
-    <ul>
-        <li><h3>Título da manutenção: </h3><input type="text" name="name"></li>
-        <li><h3>Descrição: </h3><input type="text" name="description"></li>
-        <li><h3>Tipo: </h3>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                    <input type="radio" value="1" name="maintenance_type" id="option1" autocomplete="off" checked>Sem coleta de dados
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" value="0" name="maintenance_type" id="option2" autocomplete="off">Com coleta de dados
-                </label>
+ <div class="row formmanutencao">
+            <div class="col-md-8 form-group">
+                <form method="POST" action="{{ url_for('manitenanceToZabbix') }}">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="tituloManutencao">Titulo da manutenção:</label>
+                            <input type="text" id="tituloManutencao" class="form-control">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="descricaoManutencao">Descrição da manutenção:</label>
+                            <textarea class="form-control" rows="5" id="descricaoManutencao"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="inicioManutencao">Horário de início:</label>
+                            <input type="datetime-local" id="inicioManutencao" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="fimManutencao">Horário de término:</label>
+                            <input type="datetime-local" id="fimManutencao" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label for="tipoManutencao">Tipo:</label>
+                            <select class="form-control form-control-lg" id="tipoManutencao" class="form-control">
+                                <option selected>Escolha uma opção...</option>
+                                <option value="1">Sem coleta de dados</option>
+                                <option value="2">Com coleta de dados</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 form-group">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#elementos">Host</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="elementos" class="tab-pane fade in active">
+                                    <select multiple class="form-control" id="elementos" name="host_list" size='10'>
+                                            {% for host in hosts %}
+                                                <option value="{{ host.hostid }}">{{ host.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                            </div>                   
+                        </div>                                                                       
+                        </div>
+                        <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary text-center botaogrande">ENVIAR</button>
+                            </div>
+                    </div>
+
+                </form>
             </div>
-        <li><h3>Início: </h3><input type="datetime-local" name="starttime"></li>
-        <li><h3>Fim: </h3><input type="datetime-local" name="endtime"></li>
-        <li><h3>Elementos: </h3>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                    <input type="radio" value="0" name="target" id="option1" autocomplete="off" checked>Hosts
-                </label>
-                <label class="btn btn-secondary">
-                    <input type="radio" value="" name="target" id="option2" autocomplete="off">Grupo de hosts
-                </label>
-            </div>
-        <select multiple="multiple" name="host_list" size='30'>
-            {% for host in hosts %}
-                <option value="{{ host.hostid }}">{{ host.name }}</option>
-            {% endfor %}
-        </select>
-        <li><input type="submit"></li>
-    </ul>
-</form>
+        </div>
 {% endblock %}
