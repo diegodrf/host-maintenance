@@ -9,6 +9,11 @@
 # #                                 period=60)
 # # print(manutencao.create([4], True))
 
-from app.models import get_maintenance
+# from app.models import get_maintenance
+#
+# print(get_maintenance(54))
 
-print(get_maintenance(54))
+from ZabbixAPI_py import Zabbix
+api = Zabbix(server='http://10.241.0.4/zabbix')
+token = api.login(user='API', password='APIzabbix')
+print(len(token))

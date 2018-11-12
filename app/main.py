@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for, request
+from flask import Flask, redirect, render_template, url_for, request, session
 import app.epoch as epoch
 from ZabbixAPI_py import Zabbix
 from app import models
@@ -16,8 +16,8 @@ def index():
 def maintenance():
 
     # Faz um get para listar os hosts para o usuário.
-    api = Zabbix(server=Auth.zabbixServer)
-    api.login(user=Auth.zabbixUser, password=Auth.zabbixPassword)
+    api = Zabbix(server='http://10.241.0.4/zabbix')
+    api.login(user=session['API']['user'], password=session['API']['password'])
     hosts = [host for host in api.host('get', {'output': ['hostid', 'name']})]
 
     return render_template('maintenance.html', hosts=hosts)
@@ -64,6 +64,24 @@ def maintenanceToZabbix():
 def maintenance_list():
     maintenances = models.get_maintenance()
     return render_template('maintenance_list.html', maintenances=maintenances)
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/auth', methods=['POST'])
+def auth():
+    user = request.form['user']
+    password = request.form['password']
+    server = 'http://10.241.0.4/zabbix'
+
+    api = Zabbix(server=server)
+    token = api.login(user=user, password=password)
+    if len(token) == 32:
+        session[user] = {'user': user, 'password': password}
+        return redirect(url_for('maintenance'))
+    else:
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)

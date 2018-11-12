@@ -2,23 +2,22 @@
 {% block content %}
 <div class="row txtlogin">
             <div class="col-md-6 login">
-                <form method="POST" action="{{ url_for('authentication') }}">
+                <form method="POST" action="{{ url_for('auth') }}">
                    
                         <div class="col-md-12 form-group">
                             <h2 class="text-center">Login</h2>
-                            <label for="Email">Email:</label>
-                            <input type="email" id="email" class="form-control" placeholder="Endereço de e-mail."
+                            <label for="Usuario">Usuário:</label>
+                            <input type="text" id="usuario" name="user" class="form-control" placeholder="Usuário"
                                 required autofocus>
                         </div>
                         <div class="col-md-12 form-group">
                             <label for="pswrd">Senha:</label>
-                            <input type="password" id="pswrd" class="form-control" placeholder="Senha.">
+                            <input type="password" id="pswrd" name="password" class="form-control" placeholder="Senha">
                         </div>
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-primary text-center botaogrande">ENTRAR</button>
                         </div>
                 </form>
             </div>
-        </form>
         </div>
 {% endblock %}
