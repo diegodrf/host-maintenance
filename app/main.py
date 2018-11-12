@@ -1,13 +1,11 @@
 from flask import Flask, redirect, render_template, url_for, request
 import app.epoch as epoch
-from app.API.zabbixapi import Zabbix
+from ZabbixAPI_py import Zabbix
 from app import models
 from app.API.auth import Auth
 
-
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../static', template_folder='../templates')
 app.secret_key = 'Rn5!c3cU@a5t'
-
 
 @app.route('/')
 def index():
@@ -25,7 +23,7 @@ def maintenance():
     return render_template('maintenance.html', hosts=hosts)
 
 @app.route('/manitenanceToZabbix', methods=['POST'])
-def manitenanceToZabbix():
+def maintenanceToZabbix():
 
     # Recebe os campos do POST
     name = request.form['name']
@@ -48,12 +46,15 @@ def manitenanceToZabbix():
                                            period=period)
 
     # Chama o método nos padrões necessários de acordo com a opção do usuário.
-    if request.form['target'] == '0':
-        message = maintenanceZabbix.create(ids=host_list, groupids=False)
-    else:
-        message = maintenanceZabbix.create(ids=host_list, groupids=True)
+    # Comentado pois por enquanto não trataremos a manutenção nesta granularidade
+    # if request.form['target'] == '0':
+    #     message = maintenanceZabbix.create(ids=host_list, groupids=False)
+    # else:
+    #     message = maintenanceZabbix.create(ids=host_list, groupids=True)
 
-    #TODO: Criar uma tela amigavel para a validação da ação.
+    message = maintenanceZabbix.create(ids=host_list, groupids=False)
+    print(message)
+    print(message['maintenanceids'][0])
     maintenance_created = models.get_maintenance(message['maintenanceids'][0])
 
     return render_template('maintenance_created.html', maintenance=maintenance_created)

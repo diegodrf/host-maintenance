@@ -2,31 +2,31 @@
 {% block content %}
  <div class="row formmanutencao">
             <div class="col-md-8 form-group">
-                <form method="POST" action="{{ url_for('manitenanceToZabbix') }}">
+                <form method="POST" action="{{ url_for('maintenanceToZabbix') }}">
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="tituloManutencao">Titulo da manutenção:</label>
-                            <input type="text" id="tituloManutencao" class="form-control">
+                            <input type="text" id="tituloManutencao" name="name" class="form-control">
                         </div>
                         <div class="col-md-12 form-group">
                             <label for="descricaoManutencao">Descrição da manutenção:</label>
-                            <textarea class="form-control" rows="5" id="descricaoManutencao"></textarea>
+                            <textarea class="form-control" rows="5" id="descricaoManutencao" name="description"></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label for="inicioManutencao">Horário de início:</label>
-                            <input type="datetime-local" id="inicioManutencao" class="form-control">
+                            <input type="datetime-local" id="inicioManutencao" name="starttime" class="form-control">
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="fimManutencao">Horário de término:</label>
-                            <input type="datetime-local" id="fimManutencao" class="form-control">
+                            <input type="datetime-local" id="fimManutencao" name="endtime"class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label for="tipoManutencao">Tipo:</label>
-                            <select class="form-control form-control-lg" id="tipoManutencao" class="form-control">
+                            <select class="form-control form-control-lg" id="tipoManutencao" name="maintenance_type" class="form-control">
                                 <option selected>Escolha uma opção...</option>
                                 <option value="1">Sem coleta de dados</option>
                                 <option value="2">Com coleta de dados</option>

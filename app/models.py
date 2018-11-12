@@ -1,4 +1,4 @@
-from app.API.zabbixapi import Zabbix
+from ZabbixAPI_py import Zabbix
 from app.API.auth import Auth
 
 
@@ -64,4 +64,4 @@ def get_maintenance(id=None):
                                                'selectHosts': ['name'],
                                                'filter': {'maintenanceid': id}
                                                })
-        return maintenance
+        return maintenance[0]
