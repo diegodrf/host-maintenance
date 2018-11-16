@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
  <div class="row formmanutencao">
-    <div class="col-md-6">          
-           <nav class="navbar navbar-light" style="background-color:white">
-               <a class="espacamento" href="{{ url_for('maintenance_list') }}">Lista de Manutenções</a>                            
-           </nav>
-          </div>
+     <div class="row">
+                            <nav class="navbar navbar-light" style="background-color:white">
+                                <a class="espacamento text-left" href="{{ url_for('maintenance_list') }}">Lista de Manutenções</a>                            
+                            </nav>
+                        </div>
             <div class="col-md-8 form-group">
                 <form method="POST" action="{{ url_for('maintenanceToZabbix') }}">
                     <div class="row">
