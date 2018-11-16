@@ -1,21 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
     {% for maintenance in maintenances %}
-        <ul>
-            <li>ID: {{ maintenance.maintenanceid }}</li>
-            <li>Título: {{ maintenance.name }}</li>
-            <li>Descrição: {{ maintenance.description }}</li>
-            <li>Início: {{ maintenance.active_since }}</li>
-            <li>Fim: {{ maintenance.active_till }}</li>
-            <li>Hosts:
-                <ul>
-            {% for host in maintenance.hosts %}
-                <li>{{ host.name }}</li>
-            {% endfor %}
-                    </ul>
-            </li>
-            <li>Tipo: {{ maintenance.maintenance_type }}</li>
-        </ul>
+   <div class="col-md-12">
+                <p>ID: {{ maintenance.maintenanceid }}</p>
+                <p>Título: {{ maintenance.name }}</p>
+                <p>Descrição: {{ maintenance.description }}</p>
+                <p>Início: {{ maintenance.active_since }}</p>
+                <p>Fim: {{ maintenance.active_till }}</p>
+                <p>Hosts: {% for host in maintenance.hosts %} </p>
+                <p>{{ host.name }}</p>
+                <p>{% endfor %}</p>
+                <hr>
+            </div>
 
     {% endfor %}
 
