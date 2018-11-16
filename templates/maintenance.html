@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
  <div class="row formmanutencao">
+    <div class="col-md-6">          
+           <nav class="navbar navbar-light" style="background-color:white">
+               <a class="espacamento" href="{{ url_for('maintenance_list') }}">Lista de Manutenções</a>                            
+           </nav>
+          </div>
             <div class="col-md-8 form-group">
                 <form method="POST" action="{{ url_for('maintenanceToZabbix') }}">
                     <div class="row">
@@ -27,7 +32,7 @@
                         <div class="col-md-12 form-group">
                             <label for="tipoManutencao">Tipo:</label>
                             <select class="form-control form-control-lg" id="tipoManutencao" name="maintenance_type" class="form-control">
-                                <option selected>Escolha uma opção...</option>
+                                <option selected>Escolha uma opção....</option>
                                 <option value="1">Sem coleta de dados</option>
                                 <option value="2">Com coleta de dados</option>
                             </select>
