@@ -87,7 +87,7 @@ def auth():
     user = request.form['user']
     password = request.form['password']
     timestamp = time()
-    server = 'http://10.241.0.4/zabbix'
+    server = Auth.zabbixServer
 
     # Verifica se o usuário já possui sessão ativa, se tiver, permite a entrada e renova seu timestamp,
     # se não, verifica no zabbix a existência do usuário.
