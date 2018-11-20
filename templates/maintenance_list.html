@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
     {% for maintenance in maintenances %}
-   <div class="col-md-12">
-                <p>ID: {{ maintenance.maintenanceid }}</p>
+<div class="row formmlista2">
+   <div class="col-md-12 ">
+                <p>ID:</span> {{ maintenance.maintenanceid }}</p>
                 <p>Título: {{ maintenance.name }}</p>
                 <p>Descrição: {{ maintenance.description }}</p>
                 <p>Início: {{ maintenance.active_since }}</p>
@@ -12,6 +13,7 @@
                 <p>{% endfor %}</p>
                 <hr>
             </div>
+    </div>
 
     {% endfor %}
 

@@ -24,6 +24,14 @@
     font-size:20px;
 }
 
+
+.formmlista2{
+    padding-top: 75px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    font-size:20px;
+}
+
 .botaogrande{
     width: 100%;
 }
@@ -45,8 +53,13 @@
     font-weight: bold;
 }
 
-.espacamento{
+.espacamento {
     padding-bottom: 20px;
 }
 
-hr { background-color: red; height: 1px; border: 0; }
+hr {
+background-color: red;
+height: 1px;
+border: 0; }
+
+

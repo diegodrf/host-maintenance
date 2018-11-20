@@ -3,11 +3,10 @@
  <div class="row formmanutencao">
      <div class="col-md-8 form-group">
                             <div class="row">
-                            <nav class="navbar navbar-light" style="background-color:white">
-                                <a class="espacamento text-left" href="{{ url_for('maintenance_list') }}">Lista de Manutenções</a>                            
-                            </nav>
+                                <div class="col-md-12 text-right">
+                                   <p class="espacamento text-left"><a href="{{ url_for('maintenance_list') }}">Lista de Manutenções</a></p>
                         </div>
-            <div class="col-md-8 form-group">
+            <div class="col-md-12 form-group">
                 <form method="POST" action="{{ url_for('maintenanceToZabbix') }}">
                     <div class="row">
                         <div class="col-md-12 form-group">
@@ -45,7 +44,7 @@
                             <li class="active"><a data-toggle="tab" href="#elementos">Host</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div id="elementos" class="tab-pane fade in active">
+                            <div id="elementoss" class="tab-pane fade in active">
                                     <select multiple class="form-control" id="elementos" name="host_list" size='10'>
                                             {% for host in hosts %}
                                                 <option value="{{ host.hostid }}">{{ host.name }}</option>
