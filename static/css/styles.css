@@ -26,10 +26,42 @@
 
 
 .formmlista2{
-    padding-top: 75px;
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
     font-size:20px;
+    text-transform: uppercase;
+    color:darkslategrey;
+
+}
+
+.txtlista{
+    font-family: 'KoHo', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 15px;
+    color:dimgrey
+}
+
+.marginid{
+    margin-left: 19.5%;
+    color:red;
+}
+
+.margintitulo{
+margin-left: 14.5%;
+}
+
+.margininicio{
+margin-left:15.5%;
+}
+
+.marginfim{
+margin-left:17.5%;
+}
+
+
+.margindesc{
+margin-left: 11%;
 }
 
 .botaogrande{
@@ -55,6 +87,10 @@
 
 .espacamento {
     padding-bottom: 20px;
+}
+
+.espacamentotop{
+padding-top: 55px;
 }
 
 hr {
