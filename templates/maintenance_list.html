@@ -6,8 +6,8 @@
        <p><span class="formmlista2">ID:</span> <span class="txtlista marginid">{{ maintenance.maintenanceid }}</span></p>
        <p><span class="formmlista2">Título:</span> <span class="txtlista margintitulo">{{ maintenance.name }}</span></p>
        <p><span class="formmlista2">Descrição:</span> <span class="txtlista margindesc">{{ maintenance.description }}</span></p>
-       <p><span class="formmlista2">Início: </span><span class="txtlista margininicio">{{ maintenance.active_since }}</span></p>
-       <p><span class="formmlista2">Fim: </span><span class="txtlista marginfim">{{ maintenance.active_till }}</span></p>
+       <p><span class="formmlista2">Início: </span><span class="txtlista margininicio">{{ maintenance.active_since|strftime }}</span></p>
+       <p><span class="formmlista2">Fim: </span><span class="txtlista marginfim">{{ maintenance.active_till|strftime }}</span></p>
        <p class="formmlista2">Hosts:</p>
        {% for host in maintenance.hosts %}
        <p class="txtlista text-center">{{ host.name }}</p>
